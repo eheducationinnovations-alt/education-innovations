@@ -1,15 +1,44 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { Play } from "lucide-react";
+import { Layers, Play } from "lucide-react";
 import React, { useState } from "react";
+import { blueRadialGradient } from "../theme";
+
+const VIDEOS = {
+  overview: {
+    id: "21MAHYOtgkc",
+    label: "Quick Overview",
+    title: "Homework Rooster Explainer",
+    description:
+      "Our explainer video shows how we're rethinking homework for the modern classroom.",
+  },
+  deep: {
+    id: "XsGjGwfT1GQ",
+    label: "Deep Dive",
+    title: "Homework Rooster Deep Dive",
+    description:
+      "Go deeper with a full walkthrough of how Homeworkrooster works end to end.",
+  },
+} as const;
+
+type VideoKey = keyof typeof VIDEOS;
 
 const VideoSection: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const [activeVideo, setActiveVideo] = useState<VideoKey>("overview");
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const current = VIDEOS[activeVideo];
 
   const handlePlayVideo = () => {
     setIsPlaying(true);
+  };
+
+  const handleSelectVideo = (key: VideoKey) => {
+    if (key === activeVideo) return;
+    setActiveVideo(key);
+    setIsPlaying(false);
   };
 
   return (
@@ -138,11 +167,76 @@ const VideoSection: React.FC = () => {
                 textAlign: "center",
               }}
             >
-              Our explainer video shows how we're rethinking homework for the
-              modern classroom.
+              {current.description}
             </Typography>
           </Box>
         </Box>
+      </Box>
+
+      {/* Video Tab Switcher */}
+      <Box
+        sx={{
+          padding: "6px",
+          bgcolor: "surface.color1",
+          borderRadius: "80px",
+          display: "inline-flex",
+          gap: "6px",
+          border: "1px solid",
+          borderColor: "surface.color2",
+          boxShadow: "0px 8px 24px rgba(27, 68, 254, 0.12)",
+        }}
+      >
+        {(Object.keys(VIDEOS) as VideoKey[]).map((key) => {
+          const selected = key === activeVideo;
+          const Icon = key === "overview" ? Play : Layers;
+          return (
+            <Box
+              key={key}
+              onClick={() => handleSelectVideo(key)}
+              sx={{
+                px: { xs: 2.5, sm: 3.5 },
+                py: { xs: 1, sm: 1.25 },
+                borderRadius: "999px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                background: selected ? blueRadialGradient : "transparent",
+                boxShadow: selected
+                  ? "0px 8px 20px rgba(27, 68, 254, 0.3)"
+                  : "none",
+                transition: "all 0.2s ease",
+                "&:hover": {
+                  background: selected
+                    ? blueRadialGradient
+                    : "rgba(27, 68, 254, 0.06)",
+                },
+              }}
+            >
+              <Icon
+                size={isMobile ? 16 : 18}
+                color={selected ? "#FFFFFF" : theme.palette.primary.main}
+                fill={
+                  selected && key === "overview"
+                    ? "#FFFFFF"
+                    : key === "overview"
+                    ? theme.palette.primary.main
+                    : "none"
+                }
+              />
+              <Typography
+                variant="body_semibold"
+                sx={{
+                  color: selected ? "#FFFFFF" : "text.primary",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {VIDEOS[key].label}
+              </Typography>
+            </Box>
+          );
+        })}
       </Box>
 
       {/* Video Container */}
@@ -163,13 +257,15 @@ const VideoSection: React.FC = () => {
       >
         <Box
           component="iframe"
-          key={isPlaying ? "playing" : "paused"}
-          src={`https://www.youtube.com/embed/21MAHYOtgkc?autoplay=${
+          key={`${activeVideo}-${isPlaying ? "playing" : "paused"}`}
+          src={`https://www.youtube.com/embed/${current.id}?autoplay=${
             isPlaying ? 1 : 0
-          }&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&loop=1&playlist=21MAHYOtgkc`}
+          }&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&loop=1&playlist=${
+            current.id
+          }`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-          title="Homework Rooster Explainer"
+          title={current.title}
           sx={{
             width: "100%",
             height: "100%",
