@@ -208,84 +208,6 @@ const PricingPage: React.FC = () => {
             </Box>
 
             <Typography
-              variant="body_semibold"
-              sx={{
-                color: "#0F9D6B",
-                backgroundColor: "rgba(82, 233, 179, 0.2)",
-                px: 2,
-                py: 0.75,
-                borderRadius: "999px",
-              }}
-            >
-              ✨ Early adopter offer · free 2-month trial
-            </Typography>
-
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {[
-                {
-                  label: "First year",
-                  note: "September–June",
-                  price: "$1,500",
-                },
-                { label: "Second year", note: "", price: "$2,500" },
-                {
-                  label: "Years 3–4",
-                  note: "per student",
-                  price: "$1.5",
-                },
-              ].map((tier, index, tiers) => (
-                <Box
-                  key={tier.label}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 2,
-                    py: 1.75,
-                    borderBottom:
-                      index < tiers.length - 1 ? "1px solid" : "none",
-                    borderColor: "divider",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      textAlign: "left",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Typography
-                      variant="body_semibold"
-                      sx={{ color: "text.primary" }}
-                    >
-                      {tier.label}
-                    </Typography>
-                    {tier.note && (
-                      <Typography
-                        variant="body_regular"
-                        sx={{ color: "text.secondary", fontSize: "14px" }}
-                      >
-                        {tier.note}
-                      </Typography>
-                    )}
-                  </Box>
-                  <Typography
-                    variant={isMobile ? "h4" : "h3"}
-                    sx={{ color: "primary.main", fontWeight: 700 }}
-                  >
-                    {tier.price}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-
-            <Typography
               variant="body_regular"
               sx={{
                 color: "text.secondary",
@@ -297,7 +219,13 @@ const PricingPage: React.FC = () => {
             >
               Pricing for institutions established upon agreement of
               cooperation, based on region, student count, and courses
-              supported.
+              supported.{" "}
+              <Box
+                component="span"
+                sx={{ color: "primary.main", fontWeight: 600 }}
+              >
+                Discount for early adopters.
+              </Box>
             </Typography>
 
             <Button
