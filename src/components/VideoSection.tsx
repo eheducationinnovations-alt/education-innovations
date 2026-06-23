@@ -1,7 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Layers, Play } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { blueRadialGradient } from "../theme";
+
+// How long each video stays featured before auto-advancing (ms)
+const ROTATE_MS = 9000;
 
 const VIDEOS = {
   overview: {
@@ -22,20 +25,39 @@ const VIDEOS = {
 
 type VideoKey = keyof typeof VIDEOS;
 
+const VIDEO_KEYS = Object.keys(VIDEOS) as VideoKey[];
+
 const VideoSection: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const [activeVideo, setActiveVideo] = useState<VideoKey>("overview");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
 
   const current = VIDEOS[activeVideo];
 
+  // Auto-advance the featured video until the user takes control or starts playback.
+  useEffect(() => {
+    if (!autoRotate || isPlaying) return;
+
+    const timer = setTimeout(() => {
+      setActiveVideo((prev) => {
+        const next = (VIDEO_KEYS.indexOf(prev) + 1) % VIDEO_KEYS.length;
+        return VIDEO_KEYS[next];
+      });
+    }, ROTATE_MS);
+
+    return () => clearTimeout(timer);
+  }, [activeVideo, autoRotate, isPlaying]);
+
   const handlePlayVideo = () => {
+    setAutoRotate(false);
     setIsPlaying(true);
   };
 
   const handleSelectVideo = (key: VideoKey) => {
+    setAutoRotate(false);
     if (key === activeVideo) return;
     setActiveVideo(key);
     setIsPlaying(false);
@@ -237,6 +259,33 @@ const VideoSection: React.FC = () => {
             </Box>
           );
         })}
+      </Box>
+
+      {/* Auto-rotate progress indicator */}
+      <Box
+        sx={{
+          width: { xs: "140px", sm: "180px" },
+          height: "4px",
+          mt: { xs: -1, sm: -2 },
+          borderRadius: "999px",
+          bgcolor: "surface.color3",
+          overflow: "hidden",
+          visibility: autoRotate && !isPlaying ? "visible" : "hidden",
+        }}
+      >
+        <Box
+          key={activeVideo}
+          sx={{
+            height: "100%",
+            borderRadius: "999px",
+            background: blueRadialGradient,
+            animation: `videoRotateFill ${ROTATE_MS}ms linear forwards`,
+            "@keyframes videoRotateFill": {
+              from: { width: "0%" },
+              to: { width: "100%" },
+            },
+          }}
+        />
       </Box>
 
       {/* Video Container */}
