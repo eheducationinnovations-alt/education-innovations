@@ -289,14 +289,14 @@ const PricingPage: React.FC = () => {
                 borderRadius: "999px",
               }}
             >
-              ✨ Start with a free 1-month trial
+              ✨ Free for up to 30 students
             </Typography>
 
             <Typography
               variant="body_regular"
               sx={{ color: "text.secondary" }}
             >
-              USD per month, based on your number of students.
+              Choose the plan that fits how you teach.
             </Typography>
 
             <Box
@@ -307,13 +307,27 @@ const PricingPage: React.FC = () => {
               }}
             >
               {[
-                { label: "Up to 10 students", price: "$3.33" },
-                { label: "Up to 20 students", price: "$5.55" },
-                { label: "Up to 30 students", price: "$7.77" },
-                { label: "31+ students", price: "$9.99" },
-              ].map((tier, index, tiers) => (
+                {
+                  label: "Free",
+                  note: "Up to 30 students",
+                  price: "Free",
+                  period: "",
+                },
+                {
+                  label: "Pro — Monthly",
+                  note: "Billed monthly",
+                  price: "$9.99",
+                  period: "/month",
+                },
+                {
+                  label: "Pro — Yearly",
+                  note: "Billed annually",
+                  price: "$99.99",
+                  period: "/year",
+                },
+              ].map((plan, index, plans) => (
                 <Box
-                  key={tier.label}
+                  key={plan.label}
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -321,22 +335,52 @@ const PricingPage: React.FC = () => {
                     gap: 2,
                     py: 1.75,
                     borderBottom:
-                      index < tiers.length - 1 ? "1px solid" : "none",
+                      index < plans.length - 1 ? "1px solid" : "none",
                     borderColor: "divider",
                   }}
                 >
-                  <Typography
-                    variant="body_semibold"
-                    sx={{ color: "text.primary" }}
+                  <Box
+                    sx={{
+                      textAlign: "left",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
                   >
-                    {tier.label}
-                  </Typography>
-                  <Typography
-                    variant={isMobile ? "h4" : "h3"}
-                    sx={{ color: "primary.main", fontWeight: 700 }}
+                    <Typography
+                      variant="body_semibold"
+                      sx={{ color: "text.primary" }}
+                    >
+                      {plan.label}
+                    </Typography>
+                    <Typography
+                      variant="body_regular"
+                      sx={{ color: "text.secondary", fontSize: "14px" }}
+                    >
+                      {plan.note}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: 0.5,
+                    }}
                   >
-                    {tier.price}
-                  </Typography>
+                    <Typography
+                      variant={isMobile ? "h4" : "h3"}
+                      sx={{ color: "primary.main", fontWeight: 700 }}
+                    >
+                      {plan.price}
+                    </Typography>
+                    {plan.period && (
+                      <Typography
+                        variant="body_regular"
+                        sx={{ color: "text.secondary", fontSize: "14px" }}
+                      >
+                        {plan.period}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
               ))}
             </Box>
