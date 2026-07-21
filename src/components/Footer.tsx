@@ -1,9 +1,9 @@
 import {
-  Box,
-  Divider,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Divider,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -234,7 +234,7 @@ const Footer: React.FC = () => {
               />
               <ContactItem
                 iconSrc="/icons/call.svg"
-                text="+420 608 093 971"
+                text="+420 228 880 699"
                 isMobile={isMobile}
                 isTablet={isTablet}
               />

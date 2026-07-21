@@ -1,10 +1,10 @@
 import {
-  Alert,
-  Box,
-  Button,
-  Snackbar,
-  TextField,
-  Typography,
+    Alert,
+    Box,
+    Button,
+    Snackbar,
+    TextField,
+    Typography,
 } from "@mui/material";
 import { Mail, Phone } from "lucide-react";
 import React, { useState } from "react";
@@ -402,7 +402,7 @@ const ContactUsSection: React.FC = () => {
                   lineHeight: "24px",
                 }}
               >
-                +420 608 093 971
+                +420 228 880 699
               </Typography>
             </Box>
           </Box>
