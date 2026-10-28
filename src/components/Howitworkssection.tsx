@@ -10,7 +10,8 @@ const HowItWorksSection: React.FC = () => {
     {
       id: 1,
       title: "Teacher selects topic + level",
-      description: "Teachers choose the subject, difficulty, and class level.",
+      description: 
+        "Teacher chooses the subject, CEFR level, time, topics, and exercise types. They can even upload text, pictures or documents to create from workbooks or material they used in class!",
       bgColor: "surface.color3",
       textColor: "text.primary",
       icon: "/icons/teacher.svg",
@@ -18,7 +19,8 @@ const HowItWorksSection: React.FC = () => {
     {
       id: 2,
       title: "Platform generates targeted homework",
-      description: "AI instantly creates personalized assignments.",
+      description:
+        "AI instantly creates quality personalized assignments for Reading, Writing/Typing, Grammar, Vocabulary, and Listening.",
       bgColor: "secondary.main",
       textColor: "text.primary",
       icon: "/icons/book_pen.svg",
@@ -28,7 +30,7 @@ const HowItWorksSection: React.FC = () => {
       title:
         "Students complete → get feedback → teacher sees insights on gaps and progress",
       description:
-        "Students receive feedback, while teachers track performance.",
+        "Students receive feedback, while teachers can see learning gaps at individual and class levels, minus the grading time! Teachers have full editability on assignments, and full access to completed work to change grades if they fit.",
       bgColor: "text.primary",
       textColor: "surface.color1",
       icon: "/icons/student.svg",
@@ -142,7 +144,9 @@ const HowItWorksSection: React.FC = () => {
               alignSelf: "stretch",
             }}
           >
-            Lorem ipsum dolir sit amet lorem ipsum dolor sit amet
+            Create to your specifications and classroom needs, skip the grading,
+            and get easy to understand feedback on your students gaps in
+            learning.
           </Typography>
         </Box>
       </Box>
@@ -171,9 +175,9 @@ const HowItWorksSection: React.FC = () => {
         <Box
           sx={{
             width: { xs: "362px", sm: "754px", md: "1240px" },
-            height: { xs: "600px", sm: "524px", md: "636px" },
             position: "absolute",
-            top: { xs: "0", sm: "0.25px", md: "-2.88px" },
+            top: 0,
+            bottom: 0,
             left: { xs: "0", sm: "0", md: "0" },
             right: { xs: "0", sm: "0", md: "0" },
             margin: "0 auto",
@@ -191,7 +195,7 @@ const HowItWorksSection: React.FC = () => {
                 key={index}
                 sx={{
                   flex: "1 1 0",
-                  height: "784px",
+                  height: "100%",
                   position: "relative",
                   display: "flex",
                   flexDirection: "column",
@@ -203,7 +207,7 @@ const HowItWorksSection: React.FC = () => {
                 <Box
                   sx={{
                     width: "1px",
-                    height: "784px",
+                    height: "100%",
                     left: "44px",
                     top: "0px",
                     position: "absolute",
@@ -224,7 +228,7 @@ const HowItWorksSection: React.FC = () => {
                   key={index}
                   sx={{
                     flex: "1 1 0",
-                    height: "636px",
+                    height: "100%",
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
@@ -236,9 +240,9 @@ const HowItWorksSection: React.FC = () => {
                   <Box
                     sx={{
                       width: "1px",
-                      height: "784px",
+                      height: "100%",
                       left: { xs: "93px", sm: "52px", md: "93px" },
-                      top: "-74px",
+                      top: 0,
                       position: "absolute",
                       bgcolor: "divider",
                     }}
@@ -319,7 +323,6 @@ const HowItWorksSection: React.FC = () => {
           sx={{
             width: { xs: "362px", sm: "auto", md: "auto" },
             alignSelf: { xs: "center", sm: "stretch", md: "stretch" },
-            height: { xs: "auto", sm: "460px", md: "503px" },
             position: "relative",
             display: "flex",
             flexDirection: "column",
@@ -340,24 +343,12 @@ const HowItWorksSection: React.FC = () => {
                   sm: index === 2 ? "600px" : "100%",
                   md: "615px",
                 },
-                position: { xs: "static", sm: "absolute", md: "absolute" },
-                left: {
-                  xs: "auto",
+                ml: {
+                  xs: 0,
                   sm: index === 0 ? "0px" : index === 1 ? "146px" : "264px",
                   md: index === 0 ? "11%" : index === 1 ? "32%" : "50%",
                 },
-                top: {
-                  xs: "auto",
-                  sm: index === 0 ? "-0.25px" : index === 1 ? "170px" : "340px",
-                  md:
-                    index === 0
-                      ? "0.38px"
-                      : index === 1
-                      ? "174.38px"
-                      : "348.38px",
-                },
-                height: { xs: "148px", sm: "154px", md: "154px" },
-                maxHeight: { xs: "none", sm: "154px", md: "154px" },
+                minHeight: { xs: "148px", sm: "154px", md: "154px" },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
@@ -367,7 +358,7 @@ const HowItWorksSection: React.FC = () => {
               <Box
                 sx={{
                   width: "100%",
-                  flex: "1 1 0",
+                  flex: "1 1 auto",
                   p: { xs: 2.5, sm: 3, md: 3 }, // 20px, 24px, 24px
                   bgcolor: step.bgColor,
                   overflow: "hidden",

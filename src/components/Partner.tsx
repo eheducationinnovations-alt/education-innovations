@@ -151,7 +151,7 @@ const Partner: React.FC = () => {
                   }}
                 >
                   Together, we explore new ways to make learning smarter, more
-                  adaptive, and truly engaging for over 100K students.
+                  adaptive, and truly engaging for over 10K students.
                 </Typography>
               </Box>
             </Box>
